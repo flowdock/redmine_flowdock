@@ -31,7 +31,10 @@ class FlowdockListener < Redmine::Hook::Listener
 
   # Can be called after set_data
   def api_token
-    @project && Setting.plugin_flowdock[:api_token][@project.identifier]
+    raise "set_data not called before api_token" unless @project
+    token = Setting.plugin_flowdock[:api_token][@project.identifier]
+    token = nil if token == ''
+    token
   end
 
   def set_data(object)
