@@ -73,8 +73,6 @@ class FlowdockListener < Redmine::Hook::Listener
       :link => @url
     }
 
-    RAILS_DEFAULT_LOGGER.info post_data.inspect
-
     # Don't block while posting to Flowdock.
     Thread.new do
       send_http_request!(token, post_data)
