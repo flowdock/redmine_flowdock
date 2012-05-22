@@ -19,6 +19,30 @@ class FlowdockRenderer
     end
   end
 
+  def wiki_diff_to_html(page)
+    if page && page.content
+      new_version = page.content.version
+      old_version = if new_version > 1
+        new_version - 1
+      else
+        nil
+      end
+
+      diff = page.diff(old_version, new_version)
+      if diff
+        "<pre>" +
+          diff.to_html.
+            gsub('class="diff_in"', 'style="background-color: #dfd"').
+            gsub('class="diff_out"', 'style="background-color: #fdd; color: #999"') +
+        "</pre>"
+      else
+        ""
+      end
+    else
+      ""
+    end
+  end
+
   protected
 
   def journal_details(details)

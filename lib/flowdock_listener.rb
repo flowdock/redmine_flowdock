@@ -26,8 +26,9 @@ class FlowdockListener < Redmine::Hook::Listener
     set_data(context[:page])
 
     subject = "Updated \"#{@page.pretty_title}\" (Wiki)"
+    body = @@renderer.wiki_diff_to_html(@page)
 
-    send_message!(subject, "XXX")
+    send_message!(subject, body)
   end
 
   protected
