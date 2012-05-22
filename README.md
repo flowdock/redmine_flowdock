@@ -3,6 +3,8 @@ Flowdock plugin for Redmine
 
 Stream Redmine events to your Flowdock flow.
 
+Developed on: Ruby 1.9.3, Redmine 1.4.x
+
 Installation
 ------------
 
