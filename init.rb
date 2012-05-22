@@ -1,4 +1,5 @@
 require 'redmine'
+require_dependency 'flowdock_renderer'
 require_dependency 'flowdock_listener'
 
 Redmine::Plugin.register :flowdock do

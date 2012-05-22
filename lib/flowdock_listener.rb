@@ -2,6 +2,8 @@ class FlowdockListener < Redmine::Hook::Listener
   INTEGRATION_SOURCE = 'Redmine'
   FLOWDOCK_API_HOST = 'api.flowdock.com'
 
+  @@renderer = FlowdockRenderer.new
+
   def controller_issues_new_after_save(context = {})
     set_data(context[:issue])
 
@@ -15,8 +17,9 @@ class FlowdockListener < Redmine::Hook::Listener
     set_data(context[:issue])
 
     subject = "Updated \"#{@issue.subject}\" (#{@tracker})"
+    body = @@renderer.notes_to_html(context[:journal]) + @@renderer.details_to_html(context[:journal])
 
-    send_message!(subject)
+    send_message!(subject, body)
   end
 
   def controller_wiki_edit_after_save(context = {})
@@ -24,7 +27,7 @@ class FlowdockListener < Redmine::Hook::Listener
 
     subject = "Updated \"#{@page.pretty_title}\" (Wiki)"
 
-    send_message!(subject)
+    send_message!(subject, "XXX")
   end
 
   protected
@@ -56,7 +59,7 @@ class FlowdockListener < Redmine::Hook::Listener
     @project_name = @project.name
   end
 
-  def send_message!(subject, body = "XXX")
+  def send_message!(subject, body)
     token = api_token
     return unless token
 
