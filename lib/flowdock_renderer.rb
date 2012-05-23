@@ -11,10 +11,10 @@ class FlowdockRenderer
   end
 
   def details_to_html(journal)
-    if journal && journal.details && journal.details.size > 0
+    begin
       html_list = journal_details(journal.details).map { |detail| "<li>#{detail}</li>" }
       "<ul>#{html_list.join}</ul>"
-    else
+    rescue => ex
       ""
     end
   end
