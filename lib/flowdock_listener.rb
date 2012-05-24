@@ -70,7 +70,7 @@ class FlowdockListener < Redmine::Hook::Listener
       :from_name => @user_name,
       :subject => subject,
       :content => body,
-      :project => @project_name,
+      :project => @project_name.gsub(/[^\w\s]/,' '),
       :link => @url
     }
 
