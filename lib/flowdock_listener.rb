@@ -8,7 +8,7 @@ class FlowdockListener < Redmine::Hook::Listener
     set_data(context[:issue])
 
     subject = "Added \"#{@issue.subject}\" (#{@tracker})"
-    body = "<pre>#{@issue.description}</pre>"
+    body =  "Assigned to: #{@issue.assigned_to.name}<br/>" + "<pre>#{@issue.description}</pre>"
 
     send_message!(subject, body)
   end
@@ -16,8 +16,8 @@ class FlowdockListener < Redmine::Hook::Listener
   def controller_issues_edit_after_save(context = {})
     set_data(context[:issue])
 
-    subject = "Updated \"#{@issue.subject}\" (#{@tracker})"
-    body = @@renderer.notes_to_html(context[:journal]) + @@renderer.details_to_html(context[:journal])
+    subject = "Updated \"#{@issue.subject}\" (#{@tracker})"	
+    body = "Status: #{@issue.status.name}<br/>Assigned to: #{@issue.assigned_to.name}<br/>" + @@renderer.notes_to_html(context[:journal]) + @@renderer.details_to_html(context[:journal])
 
     send_message!(subject, body)
   end
@@ -36,7 +36,7 @@ class FlowdockListener < Redmine::Hook::Listener
   # Can be called after set_data
   def api_token
     raise "set_data not called before api_token" unless @project
-    token = Setting.plugin_flowdock[:api_token][@project.identifier]
+    token = Setting.plugin_redmine_flowdock[:api_token][@project.identifier]
     token = nil if token == ''
     token
   end
