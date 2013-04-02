@@ -1,14 +1,17 @@
-require 'redmine'
-require_dependency 'flowdock_renderer'
-require_dependency 'flowdock_listener'
-
-Redmine::Plugin.register :flowdock do
+Redmine::Plugin.register :redmine_flowdock do
   name 'Flowdock'
   author 'Flowdock Ltd'
   description 'Notify your Flowdock flow about Redmine events'
   version '1.0.0'
   url 'https://github.com/flowdock/redmine_flowdock'
+  
+  Rails.configuration.to_prepare do
+    require_dependency 'flowdock_listener'
+    require_dependency 'flowdock_renderer'        
+  end
 
-  settings :default => { :api_token => {} },
-           :partial => 'flowdock/settings'
+  settings :partial => 'settings/redmine_flowdock',
+    :default => {
+      :api_token => {}
+    }
 end
