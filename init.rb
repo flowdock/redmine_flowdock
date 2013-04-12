@@ -2,7 +2,7 @@ Redmine::Plugin.register :redmine_flowdock do
   name 'Flowdock'
   author 'Flowdock Ltd'
   description 'Notify your Flowdock flow about Redmine events'
-  version '1.0.0'
+  version '1.2.0'
   url 'https://github.com/flowdock/redmine_flowdock'
 
   Rails.configuration.to_prepare do
