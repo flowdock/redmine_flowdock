@@ -4,10 +4,10 @@ Redmine::Plugin.register :redmine_flowdock do
   description 'Notify your Flowdock flow about Redmine events'
   version '1.0.0'
   url 'https://github.com/flowdock/redmine_flowdock'
-  
+
   Rails.configuration.to_prepare do
     require_dependency 'flowdock_listener'
-    require_dependency 'flowdock_renderer'        
+    require_dependency 'flowdock_renderer'
   end
 
   settings :partial => 'settings/redmine_flowdock',

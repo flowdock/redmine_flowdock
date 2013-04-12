@@ -6,31 +6,33 @@ class FlowdockListener < Redmine::Hook::Listener
 
   def controller_issues_new_after_save(context = {})
     set_data(context[:issue])
-	issue   = context[:issue]
+    issue   = context[:issue]
 
     subject = "Added \"#{@issue.subject}\" (#{@tracker})"
-	
-	assigned_to = ""
-	if issue.assigned_to
-		assigned_to = "Assigned to: #{@issue.assigned_to.name}<br/>"
-	end
-		
-    body =  assigned_to + "<pre>#{@issue.description}</pre>"
+
+    assigned_to = if issue.assigned_to
+      "Assigned to: #{@issue.assigned_to.name}<br/>"
+    else
+      ""
+    end
+
+    body = assigned_to + "<pre>#{@issue.description}</pre>"
 
     send_message!(subject, body)
   end
 
   def controller_issues_edit_after_save(context = {})
     set_data(context[:issue])
-	issue   = context[:issue]
+    issue   = context[:issue]
 
-    subject = "Updated \"#{@issue.subject}\" (#{@tracker})"	
-	
-	assigned_to = ""
-	if issue.assigned_to
-		assigned_to = "Assigned to: #{@issue.assigned_to.name}<br/>"
-	end
-	
+    subject = "Updated \"#{@issue.subject}\" (#{@tracker})"
+
+    assigned_to = if issue.assigned_to
+      "Assigned to: #{@issue.assigned_to.name}<br/>"
+    else
+      ""
+    end
+
     body = "Status: #{@issue.status.name}<br/>" + assigned_to + @@renderer.notes_to_html(context[:journal]) + @@renderer.details_to_html(context[:journal])
 
     send_message!(subject, body)
