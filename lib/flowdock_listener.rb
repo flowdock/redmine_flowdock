@@ -8,7 +8,7 @@ class FlowdockListener < Redmine::Hook::Listener
     set_data(context[:issue])
     issue   = context[:issue]
 
-    subject = "Added \"#{@issue.subject}\" (#{@tracker})"
+    subject = "Added \"#{@issue.subject}\" (#{@tracker} \##{issue.id})"
 
     assigned_to = if issue.assigned_to
       "Assigned to: #{@issue.assigned_to.name}<br/>"
@@ -25,7 +25,7 @@ class FlowdockListener < Redmine::Hook::Listener
     set_data(context[:issue])
     issue   = context[:issue]
 
-    subject = "Updated \"#{@issue.subject}\" (#{@tracker})"
+    subject = "Updated \"#{@issue.subject}\" (#{@tracker} \##{issue.id})"
 
     assigned_to = if issue.assigned_to
       "Assigned to: #{@issue.assigned_to.name}<br/>"
