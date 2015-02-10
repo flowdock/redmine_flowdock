@@ -3,6 +3,6 @@
 <% Project.active.each do |project| %>
 <p>
   <%= content_tag(:label, project.name) %>
-  <%= text_field_tag("settings[api_token][#{project.identifier}]", @settings[:api_token][project.identifier]) %>
+  <%= text_field_tag("settings[api_token][#{project.identifier}]", (@settings['api_token'][project.identifier] || "")) %>
 </p>
 <% end %>
