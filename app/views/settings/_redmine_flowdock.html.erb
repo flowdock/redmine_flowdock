@@ -1,8 +1,9 @@
 <p>Get your Flowdock API tokens from the <a href="https://www.flowdock.com/help/redmine" target="_blank">help page</a>. The tokens are specific to a single Flowdock flow. You can send updates to multiple flows by adding multiple tokens that are separated with a comma.</p>
 
 <% Project.active.each do |project| %>
+  <% token = if @settings.empty? then "" else @settings['api_token'][project.identifier] end %>
 <p>
   <%= content_tag(:label, project.name) %>
-  <%= text_field_tag("settings[api_token][#{project.identifier}]", (@settings['api_token'][project.identifier] || "")) %>
+  <%= text_field_tag("settings[api_token][#{project.identifier}]", token) %>
 </p>
 <% end %>
