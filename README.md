@@ -1,3 +1,7 @@
+Notice
+======
+Unfortunately our priorities have shifted away from Redmine and so we are not maintaining this code anymore. You are welcome to fork this and make it work for you. If someone wants to maintain this plugin, we'd be happy to point people to your code.
+
 Flowdock plugin for Redmine
 ===========================
 
