@@ -3,7 +3,9 @@ class FlowdockRenderer
   include IssuesHelper
 
   def notes_to_html(journal)
-    if journal && journal.notes
+    if journal && journal.private_notes
+      "<p>Private Note</p>"
+    elsif journal && journal.notes
       "<p>#{journal.notes}</p>"
     else
       ""
